@@ -34,9 +34,26 @@ def predict():
 
     prediction = model.predict(values)
 
+    print(f"Input: {data}")
+    print(f"Prediction: {prediction[0]}")
+
     return jsonify({
         "prediction": float(prediction[0])
     })
 
+@app.route("/health")
+def health():
+    return {
+        "status": "healthy"
+    }
+
+@app.route("/info")
+def info():
+
+    return {
+        "model": "RandomForestRegressor",
+        "version": "1.0",
+        "features": len(FEATURES)
+    }
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
